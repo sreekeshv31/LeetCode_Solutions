@@ -15,11 +15,10 @@ public:
         
         return root==NULL || isSym(root->left,root->right);
         
-        
     }
     bool isSym(TreeNode* left,TreeNode* right)
     {
-        if(left==NULL || right == NULL)
+        if(left==NULL || right==NULL)
             return left==right;
         if(left->val!=right->val)
             return false;
