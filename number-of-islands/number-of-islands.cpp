@@ -1,29 +1,43 @@
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
-        if(grid.empty()) return 0;
-        int rlt=0, m=grid.size(), n=grid[0].size();
+        int n = grid.size();
+        if(n==0)
+            return 0;
+        int m = grid[0].size();
         
-        vector<vector<bool>> searched(m, vector<bool> (n, false));
-        for(int i = 0; i<m; i++){
-            for(int j =0; j<n;j++){
-                if(grid[i][j] == '1' && !searched[i][j]){
-                    rlt++;
-                    dfs(i, j, grid, searched); 
-                } 
+        stack<pair<int,int>> s;
+        int count = 0;
+        for(int i =0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                    ++count;
+                    s.push(make_pair(i,j));
+                    while(!s.empty())
+                    {
+                        int x = s.top().first;
+                        int y = s.top().second;
+                        
+                        s.pop();
+                        
+                        grid[x][y] = '0';
+                        
+                        if(y+1<m && grid[x][y+1]=='1')
+                            s.push(make_pair(x,y+1));
+                        if(x+1<n && grid[x+1][y] == '1')
+                            s.push(make_pair(x+1,y));
+                        if(x-1>=0 && grid[x-1][y]== '1')
+                            s.push(make_pair(x-1,y));
+                        if(y-1>=0 && grid[x][y-1]== '1')
+                            s.push(make_pair(x,y-1));
+                    }
+                }
             }
         }
-        return rlt;
-    }
-    
-    void dfs(int i, int j, vector<vector<char>>& grid, vector<vector<bool>>& searched){
-        if(i<0 || i>=grid.size() || j<0 || j>=grid[0].size()) return;
-        if(searched[i][j] || grid[i][j] == '0') return;
+        return count;
         
-        searched[i][j] = true;
-        dfs(i+1, j, grid, searched);
-        dfs(i, j+1, grid, searched);
-        dfs(i-1, j, grid, searched);
-        dfs(i, j-1, grid, searched);
     }
 };
