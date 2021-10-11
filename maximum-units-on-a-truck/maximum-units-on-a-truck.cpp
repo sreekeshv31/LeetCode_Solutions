@@ -2,25 +2,28 @@ class Solution {
 public:
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
         
-        sort(boxTypes.begin(),boxTypes.end(),[](const auto &a,const auto &b){
-            return a[1] > b[1];
-        });
+        
+        sort(boxTypes.begin(),boxTypes.end(),[](const auto&a,const auto&b)
+             {
+                 return a[1]>b[1];
+             });
+        
         int result = 0;
-        for(auto &boxType : boxTypes)
+        
+        for(auto &boxtype : boxTypes)
         {
-            if(truckSize>boxType[0])
+            if(truckSize>boxtype[0])
             {
-                truckSize-=boxType[0];
-                result+=boxType[0]*boxType[1];
+                truckSize-=boxtype[0];
+                result+=boxtype[0]*boxtype[1];
             }
             else
             {
-                result+=truckSize*boxType[1];
+                result+=truckSize*boxtype[1];
                 break;
             }
         }
-        return result; // Time:  O(nlogn)
-                        // Space: O(1)
+        return result;
         
     }
 };
