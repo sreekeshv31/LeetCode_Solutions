@@ -12,37 +12,17 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        if(root==NULL)
-            return vector<int>();
-        vector<int> ans;
-        TreeNode *prev = NULL;
-        TreeNode *curr = root;
-        while(curr!=NULL)
-        {
-            if(curr->left==NULL)
-            {
-                ans.push_back(curr->val);
-                curr = curr->right;
-            }
-            else
-            {
-                prev = curr->left;
-                while(prev->right!=NULL && prev->right!=curr)
-                    prev = prev->right;
-                if(prev->right==NULL)
-                {
-                    prev->right = curr;
-                    curr=curr->left;
-                }
-                else
-                {
-                    prev->right = NULL;
-                    ans.push_back(curr->val);
-                    curr= curr->right;
-                }
-            }
-        }
-        return ans;
+        vector<int> inorder;
+        dfs(root,inorder);
+        return inorder;
         
+    }
+    void dfs(TreeNode*node,vector<int>&inorder)
+    {
+        if(node==NULL)
+            return;
+        dfs(node->left,inorder);
+        inorder.push_back(node->val);
+        dfs(node->right,inorder);
     }
 };
