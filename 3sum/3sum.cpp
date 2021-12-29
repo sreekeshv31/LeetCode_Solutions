@@ -1,35 +1,37 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& num) {
-        vector<vector<int>> res; 
-        sort(num.begin(), num.end()); 
-        
-        // moves for a
-        for (int i = 0; i < (int)(num.size())-2; i++) {
-            
-            if (i == 0 || (i > 0 && num[i] != num[i-1])) {
-                
-                int low = i+1, hi = (int)(num.size())-1, sum = 0 - num[i];
-                
-                while (low < hi) {
-                    if (num[low] + num[hi] == sum) {
-                        
-                        vector<int> temp; 
-                        temp.push_back(num[i]); 
-                        temp.push_back(num[low]); 
-                        temp.push_back(num[hi]); 
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(),nums.end());
+        for(int i = 0;i<(int)(nums.size())-2;i++)
+        {
+            if(i==0||(i>0 && nums[i]!=nums[i-1]))
+            {
+                int low = i+1,high =  (int)(nums.size())-1,sum = 0 - nums[i];
+                while(low<high)
+                {
+                    if(nums[low] + nums[high] == sum)
+                    {
+                        vector<int> temp;
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[low]);
+                        temp.push_back(nums[high]);
                         res.push_back(temp);
+                        while(low<high && nums[low] == nums[low+1])
+                            low++;
+                        while(low<high && nums[high]==nums[high-1])
+                            high--;
                         
-                        while (low < hi && num[low] == num[low+1]) low++;
-                        while (low < hi && num[hi] == num[hi-1]) hi--;
-                        
-                        low++; hi--;
-                    } 
-                    else if (num[low] + num[hi] < sum) low++;
-                    else hi--;
-               }
+                        low++;high--;
+                    }
+                    else if(nums[low] + nums[high] < sum)
+                        low++;
+                    else
+                        high--;
+                }
             }
         }
         return res;
+        
     }
 };
