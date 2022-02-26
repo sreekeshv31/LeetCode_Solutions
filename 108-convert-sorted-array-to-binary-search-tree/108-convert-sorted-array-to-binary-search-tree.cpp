@@ -13,7 +13,8 @@ class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         return solve(nums,0,nums.size()-1);
-        
+       // Time:  O(n)
+        // Space: O(logn)
     }
     TreeNode *solve(vector<int> &nums,int low,int high)
     {
