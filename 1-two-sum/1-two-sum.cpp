@@ -14,7 +14,6 @@ public:
             mpp[nums[i]] = i;
         }
         return ans;
-        //T - O(N) and S - O(N)
         
     }
 };
