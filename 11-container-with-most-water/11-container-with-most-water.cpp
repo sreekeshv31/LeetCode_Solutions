@@ -1,23 +1,17 @@
 class Solution {
 public:
-    int maxArea(vector<int>& height) {
-        int max_area = 0;
-        int a_pointer = 0;
-        int b_pointer = height.size()-1;
-        while(a_pointer<b_pointer)
-        {
-            if(height[a_pointer]<height[b_pointer])
-            {
-                max_area = max(max_area,height[a_pointer] *(b_pointer-a_pointer));
-                a_pointer+=1;
+    int maxArea(vector<int>& H) {
+        int ans = 0, i = 0, j = H.size()-1, res = 0;
+        while (i < j) {
+            if (H[i] <= H[j]) {
+                res = H[i] * (j - i);
+                i++;
+            } else {
+                res = H[j] * (j - i);
+                j--;
             }
-            else
-            {
-                max_area = max(max_area,height[b_pointer]*(b_pointer-a_pointer));
-                b_pointer-=1;
-            }
+            if (res > ans) ans = res;
         }
-        return max_area;
-        
+        return ans;
     }
 };
