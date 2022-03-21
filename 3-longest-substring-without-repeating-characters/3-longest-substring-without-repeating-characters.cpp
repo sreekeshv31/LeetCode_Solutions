@@ -1,19 +1,22 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        vector<int> mpp(256,-1);
-        int left = 0,right=0,n=s.size(),length=0;
-        while(right<n)
-        {
-            if(mpp[s[right]]!=-1)
-            {
-                left = max(left,mpp[s[right]]+1);
+        // Record the last occurrence of each char.
+        unordered_map<char, size_t> last_occurrence;
+        size_t starting_idx = 0, ans = 0;
+        for (size_t i = 0; i < s.size(); ++i) {
+            auto it(last_occurrence.find(s[i]));
+            if (it == last_occurrence.cend()) {
+                last_occurrence.emplace_hint(it, s[i], i);
+            } else {  // s[i] appeared before. Check its validity.
+                if (it->second >= starting_idx) {
+                    ans = max(ans, i - starting_idx);
+                    starting_idx = it->second + 1;
+                }
+                it->second = i;
             }
-            mpp[s[right]] = right;
-            length = max(length,right-left+1);
-            right++;
         }
-        return length;
-        
+        ans = max(ans, s.size() - starting_idx);
+        return ans;
     }
 };
