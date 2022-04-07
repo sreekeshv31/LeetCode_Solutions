@@ -1,23 +1,20 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if (s.length() != t.length()) {
+        if(s.size()!=t.size())
             return false;
-        }
-
-        unordered_map<char, int> count;
-
-        for (const auto& c: s) {
+        unordered_map<char,int> count;
+        for(auto const& c:s)
             ++count[tolower(c)];
-        }
-
-        for (const auto& c: t) {
+        
+        for(auto const&c:t)
+        {
             --count[tolower(c)];
-            if (count[tolower(c)] < 0) {
+            if(count[tolower(c)]<0)
                 return false;
-            }
+            
         }
-
         return true;
+        
     }
 };
