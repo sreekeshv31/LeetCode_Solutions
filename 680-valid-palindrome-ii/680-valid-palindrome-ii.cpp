@@ -1,23 +1,25 @@
 class Solution {
 public:
     bool validPalindrome(string s) {
-        int left = 0, right = s.length() - 1;
-        while (left < right) {
-            if (s[left] != s[right]) {
-                return validPalindrome(s, left, right - 1) || validPalindrome(s, left + 1, right);
+        int left = 0,right = s.size()-1;
+        while(left<right)
+        {
+            if(s[left]!=s[right])
+            {
+                return isValidPal(s,left,right-1) || isValidPal(s,left+1,right);
             }
-            ++left, --right;
+            ++left,--right;
         }
         return true;
+        
     }
-
-private:
-    bool validPalindrome(const string& s, int left, int right) {
-        while (left < right) {
-            if (s[left] != s[right]) {
+    bool isValidPal(string& s,int left,int right)
+    {
+        while(left<right)
+        {
+            if(s[left]!=s[right])
                 return false;
-            }
-            ++left, --right;
+            ++left,--right;
         }
         return true;
     }
