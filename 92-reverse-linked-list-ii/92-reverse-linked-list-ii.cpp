@@ -1,12 +1,11 @@
-// Time:  O(n)
-// Space: O(1)
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
 class Solution {
@@ -14,25 +13,22 @@ public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         ListNode dummy{0};
         dummy.next = head;
-
+        
         auto *prev = &dummy;
-
-        for (int i = 0; i < m - 1; ++i) {
+        for(int i =0;i<m-1;i++)
+        {
             prev = prev->next;
         }
-
         auto *head2 = prev;
-
         prev = prev->next;
-        auto *cur = prev->next;
-
-        for (int i = m; i < n; ++i) {
-            prev->next = cur->next;  // Remove cur from the list.
-            cur->next = head2->next; // Add cur to the head.
-            head2->next = cur;       // Add cur to the head.
-            cur = prev->next;        // Get next cur.
+        auto *curr = prev->next;
+        for(int i = m;i<n;i++)
+        {
+            prev->next=curr->next;
+            curr->next = head2->next;
+            head2->next = curr;
+            curr=prev->next;
         }
-
         return dummy.next;
     }
 };
