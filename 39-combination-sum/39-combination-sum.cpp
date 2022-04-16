@@ -1,29 +1,28 @@
+// Time Complexity: O(n!)
+// Space Complexity: O(1)
+
 class Solution {
-public:
-    void findCombination(int ind,int target,vector<int>&arr,vector<vector<int>>&ans,vector<int>&ds)
-    {
-        if(ind==arr.size())
-        {
-            if(target==0)
-            {
-                ans.push_back(ds);
+    public:
+        vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
+            sort(candidates.begin(), candidates.end());
+            vector<vector<int> > ans;
+            vector<int> v;
+            dfs(candidates, target, 0, v, ans);
+            return ans;
+        }
+
+    private:
+        void dfs(vector<int>& candidates, int gap, int begin, vector<int>& v,vector<vector<int> > &ans) {
+            if (gap == 0) {
+                ans.push_back(v);
+                return;
             }
-            return;
+
+            for (size_t i = begin; i < candidates.size(); i++) {
+                if (gap < candidates[i]) return;
+                v.push_back(candidates[i]);
+                dfs(candidates, gap - candidates[i], i, v, ans);
+                v.pop_back();
+            }
         }
-        //pick elements
-        if(arr[ind]<=target)
-        {
-            ds.push_back(arr[ind]);
-            findCombination(ind,target-arr[ind],arr,ans,ds);
-            ds.pop_back();
-        }
-        findCombination(ind+1,target,arr,ans,ds);
-    }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> ans;
-        vector<int> ds;
-        findCombination(0,target,candidates,ans,ds);
-        return ans;
-        
-    }
 };
