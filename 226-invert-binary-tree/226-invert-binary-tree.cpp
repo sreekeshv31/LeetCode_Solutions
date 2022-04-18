@@ -13,11 +13,11 @@ class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
         //Recursive
-        if(root)
+        if(root!=nullptr)
         {
+            swap(root->left,root->right);  
             invertTree(root->left);
             invertTree(root->right);
-            swap(root->left,root->right);  
         }
         return root;
         
