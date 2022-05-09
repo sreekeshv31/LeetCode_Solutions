@@ -16,7 +16,7 @@ public:
                 {
                     pq.pop();
                     pq.push({dist,{points[i][0],points[i][1]}});
-                } 
+                }
             }
         }
         while(!pq.empty())
