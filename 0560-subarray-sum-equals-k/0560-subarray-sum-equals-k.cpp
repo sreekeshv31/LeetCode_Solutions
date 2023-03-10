@@ -1,15 +1,15 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        auto result{0};
-        auto accumulated_sum{0};
-        unordered_map<int, int> lookup;
-        ++lookup[0];
-        for (const auto& num : nums) {
-            accumulated_sum += num;
-            result += lookup[accumulated_sum - k];
-            ++lookup[accumulated_sum];
+        unordered_map<int,int> prefixSum;
+        int ans=0,currPrefix=0;
+        prefixSum[0]++;
+        for(int i=0;i<nums.size();i++)
+        {
+            currPrefix+=nums[i];
+            ans+=prefixSum[currPrefix-k];
+            prefixSum[currPrefix]++;
         }
-        return result;
+        return ans;
     }
 };
