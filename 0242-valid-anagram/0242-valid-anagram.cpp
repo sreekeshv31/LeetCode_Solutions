@@ -1,14 +1,22 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        
         if(s.size()!=t.size())
             return false;
         
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
+        unordered_map<char,int> count;
+        for(const auto &c:s)
+            ++count[c];
         
-        return s==t;
+        for(const auto &c:t)
+        {
+            --count[c];
+            if(count[c]<0)
+                return false;
+        }
+        
+        return true; // T-O(n) S -O(1)
+            
         
     }
 };
