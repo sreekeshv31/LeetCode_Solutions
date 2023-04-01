@@ -3,6 +3,7 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
         vector<int> ans;
         unordered_map<int,int> mpp;
+        
         for(int i=0;i<nums.size();i++)
         {
             if(mpp.find(target-nums[i])!=mpp.end())
@@ -13,7 +14,7 @@ public:
             }
             mpp[nums[i]] = i;
         }
-        return ans;
+        return ans; //-O(N) and S-O(N)
         
     }
 };
