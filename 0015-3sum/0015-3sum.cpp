@@ -1,54 +1,31 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        if(nums.size()<3)
-        {
-            return {};
-        }
-        if(nums[0]>0)
-        {
-            return {};
-        }
-        vector<vector<int>> answer;
-        for(int i=0;i<nums.size();++i)
-        {
-            if(nums[i]>0)
-            {
-                break;
-            }
-             if(i>0 && nums[i]==nums[i-1])
-            {
+    vector<vector<int>> threeSum(vector<int> &nums) {
+        sort(begin(nums), end(nums));
+        vector<vector<int>> result;
+        for (int i = size(nums) - 1; i >= 2; --i) {
+            if (i + 1 < size(nums) && nums[i] == nums[i + 1]) {
                 continue;
             }
-            int low = i+1,high =nums.size()-1, sum =0;
-            while(low<high)
-            {
-                sum = nums[i]+nums[low] + nums[high];
-                if(sum>0)
-                {
-                    high--;
-                }
-                else if(sum<0)
-                {
-                    low++;
-                }
-                else
-                {
-                    answer.push_back({nums[i],nums[low],nums[high]});
-                    int last_low = nums[low];
-                    int last_high = nums[high];
-                    while(low<high && nums[low]==last_low)
-                    {
-                        low++;
+            const auto& target = -nums[i];
+            int left = 0, right = i - 1;
+            while (left < right) {
+                if (nums[left] + nums[right] < target) {
+                    ++left;
+                } else if (nums[left] + nums[right] > target) {
+                    --right;
+                } else {
+                    result.push_back({nums[left], nums[right], nums[i]});
+                    ++left; --right;
+                    while (left < right && nums[left] == nums[left - 1]) {
+                        ++left;
                     }
-                    while(low<high && nums[high]==last_high)
-                    {
-                        high--;
+                    while (left < right && nums[right] == nums[right + 1]) {
+                        --right;
                     }
-                 }
+                }
             }
         }
-        return answer;
+        return result;
     }
 };
