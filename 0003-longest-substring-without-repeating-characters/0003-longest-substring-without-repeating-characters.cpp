@@ -1,14 +1,18 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-           unordered_set<char> ss;
-        int i = 0, j=0, ans = 0;
-        for (j = 0; j < s.size(); ++j) {
-            while (ss.count(s[j])) ss.erase(s[i++]);
-            ss.insert(s[j]);
-            ans = max(ans, j - i + 1);
-        }
-        return ans;
+        int result = 0;
+        unordered_map<char,int> lookup;
+            for(int left =0,right = 0;right<s.size();++right)
+            {
+                if(lookup.count(s[right]))
+                {
+                    left = max(left,lookup[s[right]]+1);
+                }
+                lookup[s[right]] = right;
+                result = max(result,right-left +1);
+            }
+        return result;
     }
         
     
